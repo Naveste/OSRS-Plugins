@@ -141,13 +141,6 @@ public class AbyssPlugin extends LoopedPlugin
 		}
 
 		Player local = client.getLocalPlayer();
-		/*WorldPoint getChosenBarrier = new WorldPoint(3134, 3617, 0);
-		//WorldPoint edgevilleBank = new WorldPoint(3094, 3491, 0);
-		TileObject barrier = TileObjects.getNearest(x -> x.getName().equals("Barrier")
-				&& x.getWorldLocation().equals(getChosenBarrier)
-				&& x.distanceTo(getChosenBarrier) < 10);
-
-		 */
 		TileObject bankBooth = TileObjects.getNearest(x -> x.getName().contains("Bank booth"));
 		TileObject rift = TileObjects.getNearest(x -> x.getName().equals(config.runes().getName() + " rift"));
 		TileObject altar = TileObjects.getNearest(x -> x.getName().equals("Altar"));
@@ -355,42 +348,4 @@ public class AbyssPlugin extends LoopedPlugin
 	{
 		return configManager.getConfig(AbyssConfig.class);
 	}
-
-	/*
-	public static int[] pouchCapacity = {12, 9, 6, 3};
-	public static int[] currentPouchCapacity = {0, 0, 0, 0};
-
-public void fillPouches() {
-if (currentPouchCapacity[0] == pouchCapacity[0]
-            && currentPouchCapacity[1] == pouchCapacity[1]
-            && currentPouchCapacity[2] == pouchCapacity[2]
-            && currentPouchCapacity[3] == pouchCapacity[3]) {
-        return;
-    }
-        for (int i = 0; i <= pouchIds.length; i++) {
-            if (Inventory.contains(pouchIds[i])) {
-                if (Inventory.getCount(ItemID.PURE_ESSENCE) > 0) {
-                    if (currentPouchCapacity[i] < pouchCapacity[i]) {
-                        Bank.Inventory.getFirst(pouchIds[i]).interact("Fill");
-                        currentPouchCapacity[i] += Inventory.getCount(ItemID.PURE_ESSENCE);
-                        Time.sleep(randomDelay(1000, 0));
-                    }
-                }
-            }
-        }
-    }
-	 */
-
-	/*WorldPoint bankTile = new WorldPoint(3130, 3631, 0);
-		TileObject bankChest = TileObjects.getNearest(x -> x.getName().contains("Bank chest"));
-
-		if (client.getLocalPlayer().getWorldLocation().getWorldY() > 3628 && bankChest == null) {
-			Time.sleep(1500);
-			Movement.walkTo(bankTile);
-		} else if (bankChest != null && !Bank.isOpen()){
-			bankChest.interact("Use");
-			Time.sleep(1000);
-		}
-
-		 */
 }
