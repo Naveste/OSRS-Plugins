@@ -236,9 +236,13 @@ public class AbyssPlugin extends LoopedPlugin
 			if (client.getEnergy() / 100 < 50) {
 				pool.interact("Drink");
 			} else if (jewellery.hasAction(config.banking().getName())){
-				if (config.banking().equals(Banking.EDGEVILLE) || config.banking().equals(Banking.FEROX_ENCLAVE) || config.banking().equals(Banking.CASTLE_WARS)) {
-					jewellery.interact(config.banking().getName());
-					Time.sleepUntil(() -> client.getLocalPlayer().getWorldLocation().getRegionID() == 12342, 3000);
+				switch (config.banking()){
+					case EDGEVILLE:
+					case FEROX_ENCLAVE:
+					case CASTLE_WARS:
+						jewellery.interact(config.banking().getName());
+						Time.sleepUntil(() -> client.getLocalPlayer().getWorldLocation().getRegionID() == 12342, 3000);
+						break;
 				}
 			} else {
 				jewellery.interact("Teleport Menu");
@@ -260,11 +264,11 @@ public class AbyssPlugin extends LoopedPlugin
 
 	public void walkToAbyss(){
 		if (client.getLocalPlayer().getWorldLocation().getWorldY() <= 3520) {
-			Time.sleep(1000);
 			Movement.walkTo(new WorldPoint(3101, 3520, 0));
+			Time.sleep(1000);
 		} else {
-			Time.sleep(750);
 			Movement.walkTo(new WorldPoint(3105, 3557, 0));
+			Time.sleep(750);
 		}
 	}
 
