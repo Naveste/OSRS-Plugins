@@ -126,8 +126,12 @@ public class AbyssPlugin extends LoopedPlugin
 	@Override
 	protected int loop() {
 
-		if (!startBot || Game.getState() != GameState.LOGGED_IN && client.getLocalPlayer() != null){
+		if (!startBot){
 			return 100;
+		}
+
+		if (client.getGameState() != GameState.LOGGED_IN){
+			return 1000;
 		}
 
 		if (Dialog.isEnterInputOpen() && !Bank.isOpen()){
@@ -275,14 +279,16 @@ public class AbyssPlugin extends LoopedPlugin
 		return pouches;
 	}
 	public void selectBanking(){
-		if (config.banking().equals(Banking.EDGEVILLE)){
-			Static.getClient().interact(1, 57, 5, 38666247);
-		}
-		if (config.banking().equals(Banking.FEROX_ENCLAVE)){
-			Static.getClient().interact(1, 57, 7, 38666242);
-		}
-		if (config.banking().equals(Banking.CASTLE_WARS)){
-			Static.getClient().interact(1, 57, 6, 38666242);
+		switch (config.banking()){
+			case EDGEVILLE:
+				Static.getClient().interact(1, 57, 5, 38666247);
+				break;
+			case FEROX_ENCLAVE:
+				Static.getClient().interact(1, 57, 7, 38666242);
+				break;
+			case CASTLE_WARS:
+				Static.getClient().interact(1, 57, 6, 38666242);
+				break;
 		}
 	}
 
@@ -295,10 +301,6 @@ public class AbyssPlugin extends LoopedPlugin
 			}
 		}
 		return 28 - pouches.size();
-	}
-
-	public int randomDelay(int min, int max){
-		return rand.nextInt((max - min) + 1) + min;
 	}
 
 	@Subscribe
@@ -327,7 +329,7 @@ public class AbyssPlugin extends LoopedPlugin
 		if (configButtonClicked.getKey().equals("startButton")) {
 			if (!startBot) {
 				Player player = client.getLocalPlayer();
-				if (client != null && player != null && client.getGameState() == GameState.LOGGED_IN) {
+				if (player != null && client.getGameState() == GameState.LOGGED_IN) {
 					MessageUtils.addMessage("Starting plugin");
 					startBot = true;
 					timeout = 0;
