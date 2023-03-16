@@ -90,7 +90,7 @@ public class ThieverPlugin extends LoopedPlugin
 			handleCore(spot, 6072, 6070, "Lindir");
 		}
 	}
-	
+
 	private void handleCore(WorldPoint spot, int getWorldY_1, int getWorldY_2, String npcName){
 
 		TileObject door = TileObjects.getNearest(x -> x.getName().contains("Door") && x.distanceTo(spot) < 5);
@@ -188,7 +188,7 @@ public class ThieverPlugin extends LoopedPlugin
 			banking();
 		}
 	}
-	
+
 	private void walkToBank(TileObject door, TileObject bankBooth, WorldPoint bank){
 		if (door != null && door.hasAction("Open")) {
 			door.interact("Open");
@@ -211,11 +211,7 @@ public class ThieverPlugin extends LoopedPlugin
 					}
 				} else {
 					MessageUtils.addMessage("Couldn't find Dodgy necklace in the bank.");
-					if (config.logoutIfNull()) {
-						logout();
-					} else {
-						startBot = false;
-					}
+					handleShutDown();
 				}
 				Time.sleep(1000);
 				if (Bank.contains(config.food().getId())) {
@@ -229,11 +225,7 @@ public class ThieverPlugin extends LoopedPlugin
 					}
 				} else {
 					MessageUtils.addMessage("Couldn't find " + config.food().getName() + " in the bank.");
-					if (config.logoutIfNull()) {
-						logout();
-					} else {
-						startBot = false;
-					}
+					handleShutDown();
 				}
 				if (config.runesToPouch() && Bank.contains(ItemID.RUNE_POUCH) && !Inventory.contains(ItemID.RUNE_POUCH)){
 					Bank.withdraw(ItemID.RUNE_POUCH, 1, Bank.WithdrawMode.ITEM);
@@ -285,6 +277,14 @@ public class ThieverPlugin extends LoopedPlugin
 				Game.logout();
 				return -1;
 			});
+		}
+	}
+
+	private void handleShutDown() {
+		if (config.logoutIfNull()) {
+			logout();
+		} else {
+			startBot = false;
 		}
 	}
 
