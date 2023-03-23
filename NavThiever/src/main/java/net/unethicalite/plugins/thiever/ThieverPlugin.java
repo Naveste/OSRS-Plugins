@@ -242,10 +242,6 @@ public class ThieverPlugin extends LoopedPlugin
 		return Equipment.contains(ItemID.DODGY_NECKLACE) || Inventory.contains(ItemID.DODGY_NECKLACE);
 	}
 
-	private boolean isPickpocketing(){
-		return client.getLocalPlayer().getAnimation() == 881 || client.getLocalPlayer().getAnimation() == -1;
-	}
-
 	private boolean shadowVeilReq(){
 		return !(client.getLocalPlayer().getInteracting() instanceof NPC)
 				&& client.getVarbitValue(12414) == 0
